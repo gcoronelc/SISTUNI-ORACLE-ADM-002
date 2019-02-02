@@ -1,4 +1,4 @@
-![ADMINISTRACION DE BD ORACLE](https://raw.githubusercontent.com/gcoronelc/SISTUNI-ORACLE-ADM-002/master/Img/ORA-ADM-002A.JPG)
+![ADMINISTRACION DE BD ORACLE](https://raw.githubusercontent.com/gcoronelc/SISTUNI-ORACLE-ADM-002/master/Img/ORA-ADM-002B.JPG)
 
 
 # ADMINISTRACIÓN DE BASE DE DATOS ORACLE
