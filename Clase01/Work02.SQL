@@ -28,4 +28,9 @@ account unlock;
 select * from col$;
 
 
+grant sysdba to scott;
+
+revoke sysdba from scott;
+
+grant dba to scott;
 
