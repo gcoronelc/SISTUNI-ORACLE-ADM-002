@@ -5,6 +5,7 @@ Presentar una caso
 
 - Explicar el caso (6 tablas minimo)
 - Modelar el caso 
+- Definir esquemas
 - Generar el script para crear el esquema y sus objetos
 - Definir los TablesSpaces que se utilizaran 
 - Generar el script para crear los tablespaces

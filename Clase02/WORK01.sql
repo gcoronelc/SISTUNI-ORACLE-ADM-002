@@ -59,3 +59,58 @@ END;
 COMMIT;
 
 SELECT 1048576 / 1024 / 1024 FROM DUAL;
+
+
+
+------------------------------------------------------------------
+
+CREATE TABLESPACE TS_DEMO03
+DATAFILE 'C:\app\Alumno\oradata\orcl\TS_DEMO03.DBF' SIZE 5M 
+AUTOEXTEND ON NEXT 1M MAXSIZE 10M
+EXTENT MANAGEMENT LOCAL UNIFORM;
+
+CREATE TABLE TBL_DEMO03(
+    ID NUMBER CONSTRAINT PK_TBL_DEMO03 PRIMARY KEY,
+    DATO VARCHAR2(100)
+) TABLESPACE TS_DEMO03;
+
+SELECT * FROM dba_extents 
+WHERE TABLESPACE_NAME = 'TS_DEMO03';
+
+
+BEGIN
+    FOR I IN 1 .. 1000000 LOOP
+        INSERT INTO TBL_DEMO03
+        VALUES(SQ_DEMO.NEXTVAL, 'HALA MADRID');
+    END LOOP;
+END;
+
+COMMIT;
+
+
+-----------------------------------------------------
+
+CREATE TEMPORARY TABLESPACE TS_TEMP01
+TEMPFILE 'C:\app\Alumno\oradata\orcl\TS_TEMP01.DBF' SIZE 5M 
+AUTOEXTEND ON NEXT 1M 
+EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M;
+
+
+SELECT * FROM dba_temp_files;
+
+
+--------------------------------------------------------------------
+
+ALTER SYSTEM SET DB_4K_CACHE_SIZE = 8M SCOPE = SPFILE;
+
+select * from v$sga_dynamic_components;
+
+
+select * from dba_users
+where username = 'PUBLIC';
+
+
+
+
+
+
