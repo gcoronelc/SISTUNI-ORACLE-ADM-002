@@ -1,0 +1,77 @@
+Pregunta 01: usuarios con privilegio SYSDBA
+
+	Respuesta: SYS / SCOTT
+
+Pregunta 02:  usuarios con privilegio SYSOPER
+
+	Respuesta: SYS
+
+Pregunta 03: usuarios con rol DBA
+
+	Respuesta: SYS
+
+Pregunta 04: privilegios del rol DBA
+
+	Respuesta: select privilege from dba_sys_privs where grantee = 'DBA';
+
+Pregunta 05: sqlplus /nolog
+
+Pregunta 06: conn / as sysdba --- Si no se lograra la conexion es porque la autenticacion se esta realizando desde el archivo de contraseñas.
+
+Pregunta 07: Se creó el usuario USERADM a nivel de SO y se agregó al usuario USERADM en el grupo ADMINISTRADORES del SO.
+
+Pregunta 08: Se inició sesion con el usuario USERADM.
+
+Pregunta 09: sqlplus sys/oracle as sysdba
+
+Pregunta 10: asignar privilegio SYSDBA al usuario SCOTT
+
+	Respuesta: grant sysdba to scott;
+
+Pregunta 11: iniciar sesion con SCOTT utilizando el privilegio SYSDBA
+
+	Respuesta: conn scott/tiger as sysdba
+
+Pregunta 12: se consulta la tabla departamentos con el comando select * from dept;
+
+	Respuesta: se muestra el error porque se esta conectando a la BD con el esquema por defecto SYS.
+
+Pregunta 13: conn / as sysdba
+
+	Respuesta: se muestra el error porque la autenticacion se esta realizando desde el archivo de contraseñas. Se corrige agregando el usuario USERADM al grupo ora_dba a 		nivel de SO.
+
+Pregunta 14: iniciar sesion con SCOTT con privilegio SYSDBA y consultar la tabla departamentos
+
+	Respuesta: conn scott/tiger as sysdba
+		   select * from dept;
+
+Pregunta 15: consulte el contenido del archivo de contraseña
+
+	Respuesta: conn sys/admin as sysdba
+		   select * from v$pwfile_users;
+
+Pregunta 16: crear usuario CORONEL, contraseña CASTILLO y asignar privilegio SYSDBA.
+
+	Respuesta: CREATE USER CORONEL IDENTIFIED BY CASTILLO;
+		   grant sysdba to CORONEL;
+
+Pregunta 17: consulte el contenido del archivo de contraseña
+
+	Respuesta: select * from v$pwfile_users;
+
+Pregunta 18: conn CORONEL/CASTILLO
+
+	Respuesta: se muestra el error porque el usuario no tiene el privilegio para crear una sesion.
+
+Pregunta 19: conn CORONEL/CASTILLO as sysdba
+
+Pregunta 20: quitar privilegio SYSDAB al usuario CORONEL
+
+	Respuesta: revoke sysdba from CORONEL;
+
+Pregunta 21: consulte el contenido del archivo de contraseña
+
+	Respuesta: select * from v$pwfile_users;
+
+
+
