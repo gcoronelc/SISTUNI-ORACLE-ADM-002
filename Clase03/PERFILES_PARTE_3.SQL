@@ -38,3 +38,7 @@ alter user operador
 identified by secreto;
 
 
+-- Extra
+
+revoke SELECT_CATALOG_ROLE from operador;
+
