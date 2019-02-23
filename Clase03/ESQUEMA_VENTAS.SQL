@@ -1,0 +1,97 @@
+-- CASO: CREAR ESQUEMA VENTAS
+
+-- =========================================
+-- 01: CREAR EL TABLESPACE
+-- =========================================
+
+CREATE TABLESPACE TBS_VENTAS
+DATAFILE 'C:\app\Alumno\oradata\orcl\DF_VENTAS.DBF'
+SIZE 10M;
+
+
+
+-- =========================================
+-- 02: CREACION DEL USUARIO
+-- =========================================
+
+CREATE USER VENTAS 
+IDENTIFIED BY admin
+DEFAULT TABLESPACE TBS_VENTAS
+QUOTA UNLIMITED ON TBS_VENTAS;
+
+
+SELECT 
+    USERNAME, default_tablespace, temporary_tablespace
+FROM DBA_USERS
+WHERE USERNAME LIKE 'VENTAS%';
+
+
+-- =========================================
+-- 03: ASIGNAR PRIVILEGIOS
+-- =========================================
+
+GRANT CREATE SESSION TO VENTAS;
+
+GRANT CREATE TABLE TO VENTAS;
+
+
+
+-- =========================================
+-- 04: CREAR TABLAS
+-- =========================================
+
+
+GRANT ROL_MAESTROS TO VENTAS;
+
+GRANT REFERENCES ON MAESTROS.PRODUCTO TO ROL_MAESTROS;
+
+GRANT REFERENCES ON MAESTROS.PRODUCTO TO VENTAS;
+
+CREATE TABLE VENTAS.VENTA(
+  VEN_ID NUMBER(8) NOT NULL,
+  PRO_ID NUMBER(8) NOT NULL,
+  VEN_CLIENTE VARCHAR2(100) NOT NULL,
+  VEN_PRECIO NUMBER(8,2) NOT NULL,
+  PRO_CANTIDAD NUMBER(5) NOT NULL,
+  VEN_IMPORTE NUMBER(8,2) NOT NULL,
+  CONSTRAINT PK_VENTA PRIMARY KEY(VEN_ID),
+  CONSTRAINT FK_VENTA_PRODUCTOS 
+    FOREIGN KEY( PRO_ID )
+    REFERENCES MAESTROS.PRODUCTO
+);
+
+
+CREATE SEQUENCE SEQ_PRODUCTO;
+
+
+-- =========================================
+-- 05: CREAR TABLAS
+-- =========================================
+
+insert into MAESTROS.PRODUCTO
+values(SEQ_PRODUCTO.NEXTVAL, 'PRODUCTO 1', 345.67, 234);
+
+insert into MAESTROS.PRODUCTO
+values(SEQ_PRODUCTO.NEXTVAL, 'PRODUCTO 2', 765.78, 123);
+
+insert into MAESTROS.PRODUCTO
+values(SEQ_PRODUCTO.NEXTVAL, 'PRODUCTO 3', 435.67, 800);
+
+insert into MAESTROS.PRODUCTO
+values(SEQ_PRODUCTO.NEXTVAL, 'PRODUCTO 4', 768.23, 550);
+
+insert into MAESTROS.PRODUCTO
+values(SEQ_PRODUCTO.NEXTVAL, 'PRODUCTO 5', 789.34, 700);
+
+
+COMMIT;
+
+
+show parameter resource
+
+SELECT * FROM MAESTROS.PRODUCTO;
+
+
+
+
+

@@ -1,0 +1,65 @@
+Pregunta (2)
+
+DECLARE
+	N INT;
+	COMMAND VARCHAR2(200);
+BEGIN
+	COMMAND := 'DROP USER EUREKA_EXECUTE CASCADE';
+	SELECT COUNT(*) INTO N
+	FROM DBA_USERS
+	WHERE USERNAME = 'EUREKA_EXECUTE';
+	IF ( N = 1 ) THEN
+		EXECUTE IMMEDIATE COMMAND;
+	END IF;
+END;
+/
+
+CREATE USER EUREKA_EXECUTE IDENTIFIED BY admin;
+GRANT CONNECT, RESOURCE TO EUREKA_EXECUTE;
+
+
+GRANT EXECUTE ON EUREKA.usp_egcc_deposito TO EUREKA_EXECUTE;
+
+
+Pregunta (3)
+
+/*con usuario system sysdba*/
+create user EUREKA_QUERY identified by secreto;
+grant connect to operador;
+
+DECLARE
+	N INT;
+	COMMAND VARCHAR2(200);
+BEGIN
+	COMMAND := 'DROP USER EUREKA_QUERY CASCADE';
+	SELECT COUNT(*) INTO N
+	FROM DBA_USERS
+	WHERE USERNAME = EUREKA_QUERY 
+	IF ( N = 1 ) THEN
+		EXECUTE IMMEDIATE COMMAND;
+	END IF;
+END;
+/
+
+CREATE USER EUREKA_QUERY IDENTIFIED BY admin;
+GRANT CONNECT, RESOURCE TO EUREKA_QUERY ;
+
+grant select on eureka.costomovimiento to EUREKA_QUERY;
+grant select on eureka.interesmensual to EUREKA_QUERY;
+grant select on eureka.parametro to EUREKA_QUERY;
+grant select on eureka.movimiento to EUREKA_QUERY;
+grant select on eureka.cuenta to EUREKA_QUERY;
+grant select on eureka.moneda to EUREKA_QUERY;
+grant select on eureka.cliente to EUREKA_QUERY;
+grant select on eureka.tipomovimiento to EUREKA_QUERY;
+grant select on eureka.asignado to EUREKA_QUERY;
+grant select on eureka.sucursal to EUREKA_QUERY;
+grant select on eureka.empleado to EUREKA_QUERY;
+
+--verificar
+select table_name, privilege, grantee from dba_tab_privs  where grantee = 'EUREKA_QUERY';
+
+
+
+
+
