@@ -1,0 +1,69 @@
+/*
+1.-crear el esquema de EUREKA
+2.-crear el procedimiento registrar deposito.
+3.-crear el usuario EUREKA_QUERY, solo debe poder sonsultar todas las 
+tablas de EUREKA
+4.-Crear el usuario EUREKA_EXECUTE solo debe poder ejecutar
+procedimiento almacenados de EUREKA.
+5.-Hacer una prueba de cada usuario.
+*/
+
+--2.-
+create or replace procedure usp_egcc_deposito
+(p_cuenta varchar2, p_importe number, p_empleado varchar2)
+as
+  v_msg varchar2(1000);
+  v_cont number(5,0);
+  v_estado varchar2(15);
+begin
+  -- Actualizar la cuenta
+  update cuenta
+		set dec_cuensaldo = dec_cuensaldo + p_importe,
+		int_cuencontmov = int_cuencontmov + 1
+		where chr_cuencodigo = p_cuenta;  
+  -- Consultar contador y estado
+	select int_cuencontmov, vch_cuenestado
+    into v_cont, v_estado
+    from cuenta
+    where chr_cuencodigo = p_cuenta;
+  -- Verificar estado
+	if v_estado != 'ACTIVO' then
+		raise_application_error(-20001,'Cuenta no esta activa.');
+	end if;
+  -- Registrar Movimiento
+	insert into movimiento(chr_cuencodigo,int_movinumero,dtt_movifecha,
+		chr_emplcodigo,chr_tipocodigo,dec_moviimporte,chr_cuenreferencia)
+		values(p_cuenta,v_cont,sysdate,p_empleado,'003',p_importe,null);
+	-- Confirmar la Tx
+	commit;
+exception
+  when others then
+    v_msg := sqlerrm; -- capturar mensaje de error
+    rollback; -- cancelar transacción
+    raise_application_error(-20001,v_msg);
+end;
+
+--3--
+----CREAR TABLESPACE
+create tablespace TBS_EUREKA
+datafile 'C:\app\Alumno\oradata\orcl\df_EUREKA.DBF'
+SIZE 10M;
+
+----CREAR USUARIO
+CREATE USER EUREKA_QUERY
+IDENTIFIED BY admin
+DEFAULT TABLESPACE TBS_EUREKA
+QUOTA UNLIMITED ON TBS_EUREKA;
+
+GRANT SELECT ON TBS_EUREKA
+      TO USER  EUREKA_QUERY
+
+
+--4--
+CREATE USER EUREKA_EXECUTE
+IDENTIFIED BY ORACLE
+
+GRANT CONNECT EUREKA_EXECUTE;
+
+GRANT EXECUTE ON EUREKA.usp_egcc_deposito TO EUREKA_EXECUTE;
+
