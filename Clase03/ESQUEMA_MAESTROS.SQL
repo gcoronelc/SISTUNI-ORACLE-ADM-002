@@ -75,6 +75,8 @@ values(SEQ_PRODUCTO.NEXTVAL, 'PRODUCTO 5', 789.34, 700);
 COMMIT;
 
 
+show parameter resource
+
 SELECT * FROM MAESTROS.PRODUCTO;
 
 
