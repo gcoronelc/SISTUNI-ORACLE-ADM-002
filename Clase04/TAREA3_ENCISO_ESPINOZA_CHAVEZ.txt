@@ -1,0 +1,24 @@
+ALTER DATABASE DROP LOGFILE GROUP 1;
+ALTER DATABASE ADD LOGFILE GROUP 1('C:\app\alumno\oradata\orcl\REDO01A.LOG','C:\app\alumno\oradata\orcl\REDO01B.LOG')SIZE 100M;
+ALTER SYSTEM SWITCH LOGFILE;
+select group#,members,status,sequence# from v$log;
+ALTER SYSTEM SWITCH LOGFILE;
+select group#,members,status,sequence# from v$log;
+ALTER SYSTEM SWITCH LOGFILE;
+select group#,members,status,sequence# from v$log;
+ALTER DATABASE ADD LOGFILE GROUP 2;
+ALTER DATABASE ADD LOGFILE GROUP 2('C:\app\alumno\oradata\orcl\REDO02A.LOG','C:\app\alumno\oradata\orcl\REDO02B.LOG')SIZE 100M;
+ALTER SYSTEM SWITCH LOGFILE;
+select group#,members,status,sequence# from v$log;
+ALTER SYSTEM SWITCH LOGFILE;
+select group#,members,status,sequence# from v$log;
+ALTER SYSTEM SWITCH LOGFILE;
+select group#,members,status,sequence# from v$log;
+ALTER SYSTEM SWITCH LOGFILE;
+select group#,members,status,sequence# from v$log;
+ALTER SYSTEM SWITCH LOGFILE;
+select group#,members,status,sequence# from v$log;
+ALTER DATABASE DROP LOGFILE GROUP 3;
+ALTER DATABASE DROP LOGFILE GROUP 3('C:\app\alumno\oradata\orcl\REDO03A.LOG','C:\app\alumno\oradata\orcl\REDO03B.LOG');
+
+select group#,members,status,sequence# from v$log;

@@ -1,0 +1,199 @@
+
+select * from ventas;
+--DROP TABLE vendedor;
+
+create table VENTAS(
+                        CODCAMPANIAVENTA number(6) ,
+                        TIPCANALVENTA number (1),
+                        TIPVENTA number (6),
+                        TIPSUBTIPVENTA number (6),
+                        CODMES number (6),
+                        CODUNICOVENTA varchar2 (15)primary key,
+                        CODSISTEMAORIGE varchar2 (15),
+                        CODCLAVEOPECTA varchar2 (15),
+                        CODCTACOMERCIAL varchar2 (15),
+                        CODPRODUCTO varchar2 (15),
+                        CODTARJETA varchar2 (15),
+                        CODUNICOCLI varchar2 (15),
+                        CODCLAVECIC varchar2 (15),
+                        FECINGRESO varchar2 (15),
+                        FECVENTA varchar2 (15),
+                        MTOVENTA varchar2 (15),
+                        CODMONEDA varchar2 (15),
+                        CODVENDEDOR varchar2 (15),
+                        CODDERIVADOR varchar2 (15),
+                        CODSUCAGE varchar2 (15),
+create table cliente
+(cod_cliente varchar2(8) primary key,
+nom_cliente varchar2(100) ,
+dni_cliente varchar2(8),
+direc_cliente varchar2(100),
+fnac_cliente varchar2(15),
+distrito_cliente varchar2(50) ,
+genero_cliente varchar2(1)
+);
+
+create table empleado
+(cod_empleado varchar2(8) primary key,
+nom_empleado varchar2(100),
+dni_empleado varchar2(8) ,
+direc_empleado varchar2(100) ,
+fnac_empleado varchar2(15),
+fingreso_empleado varchar2(15),
+distrito_empleado varchar2(50) ,
+genero_empleado varchar2(1) ,
+sueldo_empleado number ,
+boni_empleado number,
+cargo_empleado varchar2(20) 
+);
+
+create table plato
+(cod_plato varchar2(8) primary key ,
+nom_plato varchar(50) ,
+ingredientes_plato varchar2(100) ,
+tprep_plato varchar2 (20)
+);
+
+create table pedido
+(cod_pedido varchar2(8) primary key,
+fecha_pedido varchar2(15),
+cantidad_pedido number,
+desc_pedido varchar2(100),
+mesa_pedido number,
+cod_plato varchar2(8),
+cod_cliente varchar2(8),
+cod_empleado varchar2(8));
+
+create table carta
+(cod_carta varchar2(8) primary key,
+cod_plato varchar2(8),
+desc_plato varchar2(50) ,
+precio_plato number
+);
+
+create table pago
+(cod_pago varchar2(8) primary key,
+tipo_pago varchar2(1),
+fecha_pago varchar2(15),
+monto number,
+cod_pedido varchar2(8)
+);
+
+alter table pedido  add constraint FK_cod_plato foreign key (cod_plato) references plato(cod_plato);
+alter table carta   add constraint FK2_cod_plato foreign key(cod_plato) references plato (cod_plato);
+alter table pedido add constraint FK3_cod_cliente foreign key(cod_cliente) references cliente (cod_cliente);
+alter table pedido  add constraint FK4_cod_empleado foreign key(cod_empleado) references empleado (cod_empleado);
+alter table pago add constraint FK5_cod_pedido foreign key (cod_pedido) references pedido(cod_pedido);
+
+--select * from system.plato;
+
+insert into cliente values('C0000001', 'Brayan Soto Basaldua'		, '88888888', 'Calle 1'	, '1995-12-01', 'Villa Salvador'	, 'M');
+insert into cliente values('C0000002', 'Leslie Perez Ramos'		, '88888887', 'Calle 2'	, '1994-11-02', 'Callao'		, 'F');
+insert into cliente values('C0000003', 'Jeffry Matamoros Carrillo'	, '88888877', 'Calle 3'	, '1993-10-03', 'Carabayllo'		, 'M');
+insert into cliente values('C0000004', 'Joselyn Cerdan Cerna'		, '88888777', 'Calle 4'	, '1992-09-04', 'San Martin de Porres'	, 'F');
+insert into cliente values('C0000005', 'Ibar Uquiche Alhuay'		, '88887777', 'Calle 5'	, '1991-08-05', 'San Juan Lurigancho'	, 'M');
+insert into cliente values('C0000006', 'Jazmin Huiza Vergaray'		, '88877777', 'Calle 6'	, '1990-07-06', 'Los Olivos'		, 'F');
+insert into cliente values('C0000007', 'Carlos Palacios Aguado'		, '88777777', 'Calle 7'	, '1996-06-07', 'Los Olivos'		, 'M');
+insert into cliente values('C0000008', 'Karen Arrunategui Zuñiga'	, '87777777', 'Calle 8'	, '1997-05-08', 'San Martin de Porres'	, 'F');
+insert into cliente values('C0000009', 'Mario Rivera Sosa'		, '87777776', 'Calle 9'	, '1998-04-09', 'San Juan Lurigancho'	, 'M');
+insert into cliente values('C0000010', 'Andrea Reyes Navarro'		, '87777766', 'Calle 10', '1999-03-10', 'San Juan Lurigancho'	, 'F');
+commit;
+insert into empleado values('E0000001', 'Flor Sanchez Ramirez'		, '77777777', 'Calle 1'	, '1999-03-11', '2019-01-01', 'San Martin de Porres'	, 'F', 1500	, 150	, 'Cajero');
+insert into empleado values('E0000002', 'Hans Sulluchuco Valentin'	, '77777776', 'Calle 2'	, '1998-02-12', '2019-01-11', 'San Martin de Porres'	, 'M', 1900	, 190	, 'Cocinero');
+insert into empleado values('E0000003', 'Marlene Orihuela Ramirez'	, '77777766', 'Calle 3'	, '1997-01-13', '2019-01-17', 'Callao'			, 'F', 1200	, 120	, 'Mozo');
+insert into empleado values('E0000004', 'Jhon Chafloque Chafloque'	, '77777666', 'Calle 4'	, '1996-12-14', '2019-01-21', 'San Juan Lurigancho'	, 'M', 800	, 80	, 'Ayudante');
+insert into empleado values('E0000005', 'Perina Vicuña Peña'		, '77776666', 'Calle 5'	, '1995-11-15', '2019-01-23', 'Chaclacayo'		, 'F', 1300	, 130	, 'Mozo');
+insert into empleado values('E0000006', 'Ronald Vasquez Aguilar'		, '77766666', 'Calle 6'	, '1994-10-16', '2019-02-03', 'Ventanilla'		, 'M', 1100	, 110	, 'Mozo');
+insert into empleado values('E0000007', 'Dora Martinez Chavez'		, '77666666', 'Calle 7'	, '1993-09-17', '2019-02-07', 'San Juan Lurigancho'	, 'F', 1600	, 160	, 'Cajero');
+insert into empleado values('E0000008', 'David Rocha Bardales'		, '76666666', 'Calle 8'	, '1992-08-18', '2019-02-11', 'San Martin de Porres'	, 'M', 2100	, 210	, 'Cocinero');
+insert into empleado values('E0000009', 'Celeste Cabanillas Carhuay'	, '77777555', 'Calle 9'	, '1991-07-19', '2019-02-13', 'San Juan Lurigancho'	, 'F', 2000	, 200	, 'Cocinero');
+insert into empleado values('E0000010', 'Kevin Vilca Cabanillas'		, '77777755', 'Calle 10'	, '1990-06-20', '2019-02-17', 'Carabayllo'		, 'M', 1400	, 140	, 'Cajero');
+commit;
+insert into plato values('P0000001', 'Ceviche'		, 'Pescado, limon, cebolla'		, '0:30:00');
+insert into plato values('P0000002', 'Arroz con Pollo'	, 'Arroz, pollo, choclo'		, '2:00:00');
+insert into plato values('P0000003', 'Arroz Chaufa'	, 'Arroz, cebolla china, huevo'	, '1:30:00');
+insert into plato values('P0000004', 'Tallarin Rojo'	, 'Tallarin, tomate, pollo'		, '1:30:00');
+insert into plato values('P0000005', 'Lentejas'		, 'Lentejas, ajo, arroz'		, '1:00:00');
+insert into plato values('P0000006', 'Papa Rellena'	, 'Papa, pollo, harina'		, '0:40:00');
+insert into plato values('P0000007', 'Causa de Pollo'	, 'Papa, aji colorado, pollo'	, '0:40:00');
+insert into plato values('P0000008', 'Picante de Carne'	, 'Carne, papa, zanahoria'		, '1:00:00');
+insert into plato values('P0000009', 'Locro'		, 'Zapallo, queso, papa'		, '1:30:00');
+insert into plato values('P0000010', 'Lomo saltado'	, 'Carne, papa, cebolla'		, '0:30:00');
+commit;
+
+insert into pedido values('PE000001', '2019-01-01', 2, '2 platos de Ceviche'		, 01, 'P0000001', 'C0000001', 'E0000003');
+insert into pedido values('PE000002', '2019-01-06', 1, '1 platos de Arroz con Pollo'	, 02, 'P0000002', 'C0000002', 'E0000003');
+insert into pedido values('PE000003', '2019-01-11', 3, '3 platos de Arroz Chaufa'	, 03, 'P0000003', 'C0000003', 'E0000003');
+insert into pedido values('PE000004', '2019-01-17', 4, '4 platos de Ceviche'		, 04, 'P0000001', 'C0000004', 'E0000005');
+insert into pedido values('PE000005', '2019-01-23', 2, '2 platos de Lentejas'		, 05, 'P0000005', 'C0000005', 'E0000005');
+insert into pedido values('PE000006', '2019-02-02', 2, '2 platos de Papa Rellena'	, 06, 'P0000006', 'C0000001', 'E0000005');
+insert into pedido values('PE000007', '2019-02-09', 3, '3 platos de Arroz con Pollo'	, 07, 'P0000002', 'C0000001', 'E0000006');
+insert into pedido values('PE000008', '2019-02-19', 1, '1 platos de Lentejas'		, 08, 'P0000005', 'C0000002', 'E0000006');
+insert into pedido values('PE000009', '2019-02-19', 1, '1 platos de Arroz Chaufa'	, 09, 'P0000003', 'C0000002', 'E0000006');
+insert into pedido values('PE000010', '2019-02-28', 5, '5 platos de Lomo saltado'	, 10, 'P0000010', 'C0000002', 'E0000006');
+commit;
+insert into carta values('CA000001', 'P0000001', 'Plato peruano', 20);
+insert into carta values('CA000002', 'P0000002', 'Plato peruano', 24);
+insert into carta values('CA000003', 'P0000003', 'Plato peruano', 25);
+insert into carta values('CA000004', 'P0000004', 'Plato peruano', 23);
+insert into carta values('CA000005', 'P0000005', 'Plato peruano', 19);
+insert into carta values('CA000006', 'P0000006', 'Plato peruano', 18);
+insert into carta values('CA000007', 'P0000007', 'Plato peruano', 18);
+insert into carta values('CA000008', 'P0000008', 'Plato peruano', 21);
+insert into carta values('CA000009', 'P0000009', 'Plato peruano', 22);
+insert into carta values('CA000010', 'P0000010', 'Plato peruano', 30);
+commit;
+insert into pago values('PL000001', 'E', '2019-01-01', 40	, 'PE000001');
+insert into pago values('PL000002', 'T', '2019-01-06', 24	, 'PE000002');
+insert into pago values('PL000003', 'E', '2019-01-11', 75	, 'PE000003');
+insert into pago values('PL000004', 'T', '2019-01-17', 92	, 'PE000004');
+insert into pago values('PL000005', 'E', '2019-01-23', 38	, 'PE000005');
+insert into pago values('PL000006', 'T', '2019-02-02', 36	, 'PE000006');
+insert into pago values('PL000007', 'E', '2019-02-09', 54	, 'PE000007');
+insert into pago values('PL000008', 'T', '2019-02-19', 21	, 'PE000008');
+insert into pago values('PL000009', 'E', '2019-02-19', 22	, 'PE000009');
+insert into pago values('PL000010', 'T', '2019-02-28', 150	, 'PE000010');
+commit;
+-------------------------------------------------------------------------------------------
+/*Tablaspace
+
+2. Definir los tablespaces que se utlizaran
+Ejemplo:*/
+
+/*Se utilizara dos tablespaces uno para las datos y otro para los indices*/
+
+create tablespace datos datafile  'C:/app/Alumno/oradata/ventas/datafile/datos.dbf' size 150m ;
+
+create tablespace indices datafile 'C:/app/Alumno/oradata/ventas/datafile/indice.dbf' size 150m ;
+
+/*3-Definir 3 roles de usuario que tendran acceso al esquema */
+
+create role VendedorB1 IDENTIFIED BY vendedormes1;
+create role vendedormesB2  IDENTIFIED BY vendedormes2;
+create role vendedormesB3 IDENTIFIED BY vendedormes3;
+
+grant select,insert,update on system.empleado to VendedorB1,vendedormesB2,vendedormesB3;
+
+create user Grupo1 identified by pruebapas;
+grant create session,VendedorB1 to  Grupo1 ;
+
+create user Grupo2 identified by pruebapas;
+grant create session,vendedormesB2 to  Grupo2 ;
+
+select  name, value from v$parameter where name like 'DB';
+select  VIEW_name from DBA_VIEWS where VIEW_name LIKE '%AUDIT%'
+ORDER BY VIEW_name ;
+--4. Definir la audioria al sistema
+
+ALTER SYSTEM SET audit_trail = "DB" SCOPE=SPFILE;
+
+--5. Implmentar la auditorma (ver que usuario ha modificado algun campo) del mismo oracle
+
+AUDIT SESSION;
+
+audit update table by Grupo1;
+
+AUDIT ROLE;
+
+SELECT * FROM DBA_AUDIT_OBJECT;
+SELECT * FROM V$SESSION WHERE USERNAME ='SYSTEM';
