@@ -1,0 +1,15 @@
+
+ALTER DATABASE DROP LOGFILE GROUP 2;
+
+SELECT * FROM V$LOG;
+
+ALTER DATABASE 
+ADD LOGFILE GROUP 2
+(
+'C:\app\Alumno\oradata\orcl\REDO02A.LOG',
+'C:\app\Alumno\oradata\orcl\REDO02B.LOG'
+)
+SIZE 80 M;
+
+
+
