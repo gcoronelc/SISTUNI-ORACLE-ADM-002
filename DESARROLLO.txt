@@ -1,4 +1,4 @@
-CLASE 01
+ï»¿CLASE 01
 -------------------------------------
 - Git
 - Herramientas de Trabajo
@@ -8,6 +8,10 @@ CLASE 01
 
 CLASE 02
 -----------------------------------------
-- Lección 04
-- Lección 05
-- Lección 11
+- LecciÃ³n 04
+- LecciÃ³n 05
+- LecciÃ³n 10
+
+CLASE 03
+------------------------------------------
+- Leccion 11
