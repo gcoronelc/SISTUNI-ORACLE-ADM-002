@@ -1,0 +1,3 @@
+Un minimarket necesita sistematizar y maximizar su productividad en sus procesos, y desea gestionar su Base de datos usando sql Oracle, para ello se elabora un diagrama ER.
+
+se solicita crear usuarios los cuales tienen distintos priviligios para el acceso a la BD: administrador, supevrisor y usuario.
